@@ -78,7 +78,7 @@ export function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
                             </p>
                         </div>
                         <div className="text-sm text-gray-500">
-                            Custom Trailers & Fabrication ™
+                            Custom Trailer Fabrication ™
                         </div>
                     </div>
 

@@ -67,44 +67,44 @@ export function HeroSection({ }: HeroSectionProps) {
                     <Section
                         active={activeIndex === 0}
                         align="left"
-                        title="Body Color"
-                        subtitle="Our multi-stage painting process ensures a flawless, high-gloss Electric Blue finish that resists the harshest elements while maintaining a premium look."
+                        title="Custom Finish"
+                        subtitle="From premium high-gloss coatings to full custom branding, our multi-stage finishing process ensures your trailer looks elite and withstands the toughest environments."
                     />
                     <Section
                         active={activeIndex === 1}
                         align="right"
-                        title="Precision Wheels"
-                        subtitle="Heavy-duty reinforced alloy wheels paired with industrial-grade tires, designed for extreme load distribution and long-haul reliability."
+                        title="Elite Performance"
+                        subtitle="Heavy-duty reinforced alloy wheels paired with premium industrial tires, engineered for maximum load distribution and long-haul reliability."
                     />
                     <Section
                         active={activeIndex === 2}
                         align="left"
-                        title="Heavy Axles"
-                        subtitle="High-tensile steel axles engineered for superior torsion resistance. Built to handle the most demanding heavy-haul construction and logistics tasks."
+                        title="Superior Strength"
+                        subtitle="High-tensile steel chassis and axles engineered for extreme torsion resistance. Built to handle the most demanding heavy-haul construction tasks."
                     />
                     <Section
                         active={activeIndex === 3}
                         align="right"
-                        title="Hydraulic Ramps"
-                        subtitle="Custom-fabricated rear ramp system featuring dual-stage hydraulics for effortless loading of heavy machinery and industrial equipment."
+                        title="Precision Loading"
+                        subtitle="Advanced rear loading systems featuring dual-stage hydraulics for effortless operation with heavy machinery and industrial equipment."
                     />
                     <Section
                         active={activeIndex === 4}
                         align="left"
-                        title="Load Capacity"
-                        subtitle="Engineered for a massive 40-ton payload. The reinforced structural beams and multi-point weight distribution system ensure stability under peak demand."
+                        title="Limitless Capacity"
+                        subtitle="Engineered for a massive 40-ton payload. Our reinforced structural design and precision weight distribution ensure stability under peak demand."
                     />
                     <Section
                         active={activeIndex === 5}
                         align="center"
-                        title="Fabrication"
-                        subtitle="Precision engineering meets master craftsmanship. Every trailer is a masterpiece of custom fabrication built right here in our facility."
+                        title="Expert Craftsmanship"
+                        subtitle="Precision engineering meets master fabrication. Every trailer is a bespoke masterpiece built to your exact specifications in our facility."
                     />
                     <Section
                         active={activeIndex === 6}
                         align="center-bottom"
-                        title="Ready to Build?"
-                        subtitle="Let's start your custom fabrication journey today. Click below to get a specialized quote tailored to your exact specifications."
+                        title="Your Vision, Built"
+                        subtitle="Let's start your custom fabrication journey today. Click below to get a specialized quote tailored to your business needs."
                         onBtnClick={() => setIsModalOpen(true)}
                     />
                 </div>
@@ -168,12 +168,12 @@ function Section({ active, title, subtitle, align, onBtnClick }: SectionProps) {
             className={`absolute flex flex-col transition-all duration-500 pointer-events-none hidden ${alignmentClasses[align]}`}
             style={{ opacity: 0, transform: 'translateY(10px)' }}
         >
-            <div className="bg-white/10 backdrop-blur-md p-10 rounded-[2.5rem] border border-white/20 shadow-2xl flex flex-col items-center">
-                <h2 className="text-6xl md:text-8xl font-black tracking-tighter text-white uppercase leading-[0.85] mb-6 drop-shadow-2xl">
+            <div className="bg-white/10 backdrop-blur-md p-8 md:p-10 rounded-[2.5rem] border border-white/20 shadow-2xl flex flex-col items-center">
+                <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-white uppercase leading-[0.9] mb-4 drop-shadow-2xl">
                     {title}
                 </h2>
-                <div className={`w-20 h-2 bg-red-600 mb-8 rounded-full ${align === 'right' ? 'ml-auto' : 'mx-auto'}`} />
-                <p className="text-xl md:text-2xl text-white font-medium leading-relaxed opacity-95 mb-10 drop-shadow-lg">
+                <div className={`w-16 h-1.5 bg-red-600 mb-6 rounded-full ${align === 'right' ? 'ml-auto' : 'mx-auto'}`} />
+                <p className="text-lg md:text-xl text-white font-medium leading-relaxed opacity-95 mb-8 drop-shadow-lg">
                     {subtitle}
                 </p>
 
