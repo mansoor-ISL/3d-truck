@@ -46,11 +46,20 @@ export function HeroSection({ }: HeroSectionProps) {
     }, []);
 
     return (
-        <div ref={containerRef} className="relative h-[2800vh] w-full bg-[#f8f9fa]">
+        <div ref={containerRef} className="relative h-[4900vh] w-full">
             <QuoteModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
 
+            {/* Fixed Background Image */}
+            <div className="fixed inset-0 z-0 h-full w-full">
+                <div
+                    className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+                    style={{ backgroundImage: 'url("/background.png")' }}
+                />
+                <div className="absolute inset-0 bg-black/40 backdrop-blur-[10px]" />
+            </div>
+
             {/* Fixed 3D Canvas Background */}
-            <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden pointer-events-none">
+            <div className="fixed inset-0 z-10 w-full h-full flex items-center justify-center overflow-hidden pointer-events-none">
                 <Scene3D scrollProgress={scrollProgress} />
 
                 {/* UI Overlay with Safe Zones */}
@@ -82,8 +91,8 @@ export function HeroSection({ }: HeroSectionProps) {
                     <Section
                         active={activeIndex === 4}
                         align="left"
-                        title="Modern LEDs"
-                        subtitle="High-intensity laser-cut LED lighting system for maximum visibility. Integrated signal indicators and floodlights for safe night-time operations."
+                        title="Load Capacity"
+                        subtitle="Engineered for a massive 40-ton payload. The reinforced structural beams and multi-point weight distribution system ensure stability under peak demand."
                     />
                     <Section
                         active={activeIndex === 5}
@@ -159,21 +168,21 @@ function Section({ active, title, subtitle, align, onBtnClick }: SectionProps) {
             className={`absolute flex flex-col transition-all duration-500 pointer-events-none hidden ${alignmentClasses[align]}`}
             style={{ opacity: 0, transform: 'translateY(10px)' }}
         >
-            <div className="bg-white/5 backdrop-blur-sm p-8 rounded-3xl border border-white/10 shadow-sm flex flex-col items-center">
-                <h2 className="text-6xl md:text-7xl font-black tracking-tighter text-[#1d1d1f] uppercase leading-[0.9] mb-4">
+            <div className="bg-white/10 backdrop-blur-md p-10 rounded-[2.5rem] border border-white/20 shadow-2xl flex flex-col items-center">
+                <h2 className="text-6xl md:text-8xl font-black tracking-tighter text-white uppercase leading-[0.85] mb-6 drop-shadow-2xl">
                     {title}
                 </h2>
-                <div className={`w-16 h-1.5 bg-red-600 mb-6 ${align === 'right' ? 'ml-auto' : 'mx-auto'}`} />
-                <p className="text-lg md:text-xl text-[#424245] font-medium leading-relaxed opacity-80 mb-8">
+                <div className={`w-20 h-2 bg-red-600 mb-8 rounded-full ${align === 'right' ? 'ml-auto' : 'mx-auto'}`} />
+                <p className="text-xl md:text-2xl text-white font-medium leading-relaxed opacity-95 mb-10 drop-shadow-lg">
                     {subtitle}
                 </p>
 
                 {onBtnClick && (
                     <button
                         onClick={onBtnClick}
-                        className="pointer-events-auto bg-[#1d1d1f] hover:bg-black text-white font-bold py-5 px-14 rounded-full text-xl transition-all shadow-xl transform hover:scale-105 active:scale-95"
+                        className="pointer-events-auto bg-white hover:bg-neutral-200 text-black font-black py-6 px-16 rounded-full text-2xl transition-all shadow-2xl transform hover:scale-105 active:scale-95"
                     >
-                        Get Custom Quote
+                        GET CUSTOM QUOTE
                     </button>
                 )}
             </div>

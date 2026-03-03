@@ -3,7 +3,7 @@
 import { useRef, useEffect } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { ContactShadows, Environment } from '@react-three/drei';
-import { TruckModel } from './truck-model';
+import { CustomTruckModel } from './custom-truck-model';
 import gsap from 'gsap';
 
 interface Scene3DProps {
@@ -25,8 +25,7 @@ export function Scene3D({ scrollProgress }: Scene3DProps) {
             camera={{ position: [0, 5, 25], fov: 32 }}
             style={{ pointerEvents: 'none' }}
         >
-            <color attach="background" args={['#f5f5f7']} />
-            <fog attach="fog" args={['#f5f5f7', 10, 80]} />
+            {/* Transparent background to reveal fixed image */}
 
             {/* Professional Studio Lighting */}
             <ambientLight intensity={0.7} />
@@ -52,7 +51,7 @@ export function Scene3D({ scrollProgress }: Scene3DProps) {
 
             <Environment preset="city" />
 
-            <TruckModel scrollProgress={scrollProgress} />
+            <CustomTruckModel scrollProgress={scrollProgress} />
 
             {/* Physical invisible ground to receive inter-object shadows */}
             <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.6, 0]} receiveShadow>
