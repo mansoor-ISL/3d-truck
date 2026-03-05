@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 120" fill="none">
+  <rect width="280" height="120" rx="16" fill="#0f172a"/>
+  <ellipse cx="140" cy="60" rx="86" ry="38" fill="#1f2937"/>
+  <ellipse cx="140" cy="60" rx="58" ry="26" fill="#111827"/>
+  <ellipse cx="140" cy="60" rx="32" ry="14" fill="#94a3b8"/>
+  <g stroke="#e5e7eb" stroke-width="3" stroke-linecap="round">
+    <line x1="64" y1="38" x2="216" y2="38"/>
+    <line x1="58" y1="60" x2="222" y2="60"/>
+    <line x1="64" y1="82" x2="216" y2="82"/>
+  </g>
+  <text x="16" y="108" fill="#cbd5e1" font-size="16" font-family="Arial, sans-serif">Highway Tire</text>
+</svg>

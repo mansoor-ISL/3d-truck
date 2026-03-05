@@ -1,6 +1,7 @@
 'use client';
 
 import { useRef, useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { Scene3D } from './3d-scene';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
@@ -14,6 +15,7 @@ interface HeroSectionProps {
 import { QuoteModal } from './quote-modal';
 
 export function HeroSection({ }: HeroSectionProps) {
+    const router = useRouter();
     const containerRef = useRef<HTMLDivElement>(null);
     const [scrollProgress, setScrollProgress] = useState(0);
     const [activeIndex, setActiveIndex] = useState(0);
@@ -96,16 +98,16 @@ export function HeroSection({ }: HeroSectionProps) {
                     />
                     <Section
                         active={activeIndex === 5}
-                        align="center"
+                        align="right"
                         title="Expert Craftsmanship"
                         subtitle="Precision engineering meets master fabrication. Every trailer is a bespoke masterpiece built to your exact specifications in our facility."
                     />
                     <Section
                         active={activeIndex === 6}
-                        align="center-bottom"
+                        align="fullscreen-center"
                         title="Your Vision, Built"
                         subtitle="Let's start your custom fabrication journey today. Click below to get a specialized quote tailored to your business needs."
-                        onBtnClick={() => setIsModalOpen(true)}
+                        onBtnClick={() => router.push('/home')}
                     />
                 </div>
             </div>
@@ -126,7 +128,7 @@ interface SectionProps {
     active: boolean;
     title: string;
     subtitle: string;
-    align: 'left' | 'right' | 'center' | 'center-bottom';
+    align: 'left' | 'right' | 'center' | 'center-bottom' | 'fullscreen-center';
     onBtnClick?: () => void;
 }
 
@@ -159,16 +161,17 @@ function Section({ active, title, subtitle, align, onBtnClick }: SectionProps) {
         'left': 'left-6 top-[20%] text-left max-w-lg',
         'right': 'right-6 top-[20%] text-right max-w-lg items-end',
         'center': 'left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-center max-w-2xl',
-        'center-bottom': 'left-1/2 bottom-24 -translate-x-1/2 text-center max-w-3xl'
+        'center-bottom': 'left-1/2 bottom-24 -translate-x-1/2 text-center max-w-3xl',
+        'fullscreen-center': 'inset-0 flex items-center justify-center text-center px-6'
     };
 
     return (
         <div
             ref={sectionRef}
             className={`absolute flex flex-col transition-all duration-500 pointer-events-none hidden ${alignmentClasses[align]}`}
-            style={{ opacity: 0, transform: 'translateY(10px)' }}
+            style={{ opacity: 0, transform: 'translateY(10px)', marginTop: "10%" }}
         >
-            <div className="bg-white/10 backdrop-blur-md p-8 md:p-10 rounded-[2.5rem] border border-white/20 shadow-2xl flex flex-col items-center">
+            <div className={`bg-white/10 backdrop-blur-md p-8 md:p-10 rounded-[2.5rem] border border-white/20 shadow-2xl flex flex-col items-center ${align === 'fullscreen-center' ? 'w-full max-w-2xl mx-auto' : ''}`}>
                 <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-white uppercase leading-[0.9] mb-4 drop-shadow-2xl">
                     {title}
                 </h2>
@@ -182,7 +185,7 @@ function Section({ active, title, subtitle, align, onBtnClick }: SectionProps) {
                         onClick={onBtnClick}
                         className="pointer-events-auto bg-white hover:bg-neutral-200 text-black font-black py-6 px-16 rounded-full text-2xl transition-all shadow-2xl transform hover:scale-105 active:scale-95"
                     >
-                        GET CUSTOM QUOTE
+                        CUSTOMIZE YOUR TRAILER
                     </button>
                 )}
             </div>

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 120" fill="none">
+  <rect width="280" height="120" rx="16" fill="#0b1220"/>
+  <ellipse cx="140" cy="60" rx="86" ry="34" fill="#1e293b"/>
+  <ellipse cx="140" cy="60" rx="63" ry="23" fill="#334155"/>
+  <ellipse cx="140" cy="60" rx="34" ry="12" fill="#e2e8f0"/>
+  <g stroke="#93c5fd" stroke-width="2">
+    <line x1="106" y1="48" x2="174" y2="72"/>
+    <line x1="106" y1="72" x2="174" y2="48"/>
+    <line x1="140" y1="44" x2="140" y2="76"/>
+    <line x1="120" y1="60" x2="160" y2="60"/>
+  </g>
+  <text x="16" y="108" fill="#cbd5e1" font-size="16" font-family="Arial, sans-serif">Sport Tire</text>
+</svg>
