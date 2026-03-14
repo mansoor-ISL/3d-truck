@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { TrailerConfigurator, TrailerConfig } from '@/components/trailer-configurator';
 
 const DEFAULT_CONFIG: TrailerConfig = {
-    bodyColor: '#d7262b',
+    bodyColor: '#e3c5a8',
     accentColor: '#0a0a0a',
     tireColor: '#0b0b0d',
     tireStyle: 'highway',

@@ -32,7 +32,7 @@ interface TrailerConfiguratorProps {
 }
 
 const BODY_SWATCHES = [
-    '#8d9aa5', '#6b7280', '#9ca3af', '#b45309', '#14532d', '#334155',
+    '#e3c5a8', '#8d9aa5', '#6b7280', '#9ca3af', '#b45309', '#14532d', '#334155',
     '#d7262b', '#0e1a2b', '#f7f7f7', '#1f6feb', '#7c2d12', '#0f766e',
 ];
 
@@ -135,11 +135,10 @@ export function TrailerConfigurator({ config, onConfigChange, onReset, onBack }:
                                     <button
                                         key={item.key}
                                         onClick={() => onConfigChange({ ...config, tireStyle: item.key })}
-                                        className={`rounded-xl border p-2 text-left transition ${
-                                            active
-                                                ? 'border-red-400 bg-red-500/15 shadow-[0_0_0_1px_rgba(248,113,113,0.4)]'
-                                                : 'border-white/20 bg-transparent hover:border-white/45'
-                                        }`}
+                                        className={`rounded-xl border p-2 text-left transition ${active
+                                            ? 'border-red-400 bg-red-500/15 shadow-[0_0_0_1px_rgba(248,113,113,0.4)]'
+                                            : 'border-white/20 bg-transparent hover:border-white/45'
+                                            }`}
                                     >
                                         <img src={item.image} alt={item.label} className="h-14 w-full rounded-md object-cover" />
                                         <p className="mt-2 text-sm font-semibold">{item.label}</p>
@@ -308,85 +307,128 @@ function UtilityTrailerModel({ config }: { config: TrailerConfig }) {
                 <meshStandardMaterial color={config.accentColor} roughness={0.48} metalness={0.55} />
             </RoundedBox>
 
-            {/* Inner deck base */}
-            <RoundedBox args={[2.8, 0.16, 7.8]} radius={0.02} smoothness={2} position={[0, -0.09 + rearDeckDrop * 0.5, 0]} castShadow receiveShadow>
-                <meshStandardMaterial color={config.bodyColor} roughness={0.76} metalness={0.08} />
+            {/* Main Deck (Wood finish by default, Plane style) */}
+            <RoundedBox args={[2.8, 0.20, 7.8]} radius={0.02} smoothness={2} position={[0, -0.05, 0]} castShadow receiveShadow>
+                <meshStandardMaterial color={config.bodyColor} roughness={0.78} metalness={0.06} />
             </RoundedBox>
 
-            {/* Deck planks */}
-            {[-3.4, -2.4, -1.4, -0.4, 0.6, 1.6, 2.6, 3.5].map((z) => (
-                <mesh key={z} position={[0, 0.0 + (z < -2.5 ? rearDeckDrop : 0), z]} castShadow receiveShadow>
-                    <boxGeometry args={[2.7, 0.05, 0.8]} />
-                    <meshStandardMaterial color={config.bodyColor} roughness={0.88} metalness={0.04} />
-                </mesh>
-            ))}
-
-            {/* Side rails + posts */}
-            <mesh position={[1.48, railY, 0]} castShadow receiveShadow>
-                <boxGeometry args={[0.1, railH, 8.4]} />
-                <meshStandardMaterial color={config.accentColor} roughness={0.52} metalness={0.48} />
-            </mesh>
-            <mesh position={[-1.48, railY, 0]} castShadow receiveShadow>
-                <boxGeometry args={[0.1, railH, 8.4]} />
-                <meshStandardMaterial color={config.accentColor} roughness={0.52} metalness={0.48} />
-            </mesh>
-
-            {[-3.9, -2.4, -0.9, 0.6, 2.1, 3.6].flatMap((z) => [
+            {/* Side Rails - Dense Vertical Spindles */}
+            {[-3.9, -3.4, -2.9, -2.4, -1.9, -1.4, -0.9, -0.4, 0.1, 0.6, 1.1, 1.6, 2.1, 2.6, 3.1, 3.6].flatMap((z) => [
                 <mesh key={`post-r-${z}`} position={[1.48, railH / 2 + 0.14, z]} castShadow receiveShadow>
-                    <boxGeometry args={[0.1, railH, 0.1]} />
+                    <boxGeometry args={[0.04, railH, 0.04]} />
                     <meshStandardMaterial color={config.accentColor} roughness={0.5} metalness={0.5} />
                 </mesh>,
                 <mesh key={`post-l-${z}`} position={[-1.48, railH / 2 + 0.14, z]} castShadow receiveShadow>
-                    <boxGeometry args={[0.1, railH, 0.1]} />
+                    <boxGeometry args={[0.04, railH, 0.04]} />
                     <meshStandardMaterial color={config.accentColor} roughness={0.5} metalness={0.5} />
                 </mesh>,
             ])}
 
-            {/* A-frame tongue */}
-            <mesh position={[0.52, -0.43, 5.05]} rotation={[0, 0.14, -0.02]} castShadow receiveShadow>
-                <boxGeometry args={[0.16, 0.18, 3.4]} />
-                <meshStandardMaterial color={config.accentColor} roughness={0.5} metalness={0.56} />
+            {/* Top Rails */}
+            <mesh position={[1.48, railH + 0.14, 0]} rotation={[Math.PI / 2, 0, 0]} castShadow receiveShadow>
+                <cylinderGeometry args={[0.04, 0.04, 8.4, 4]} />
+                <meshStandardMaterial color={config.accentColor} roughness={0.52} metalness={0.48} />
             </mesh>
-            <mesh position={[-0.52, -0.43, 5.05]} rotation={[0, -0.14, 0.02]} castShadow receiveShadow>
-                <boxGeometry args={[0.16, 0.18, 3.4]} />
-                <meshStandardMaterial color={config.accentColor} roughness={0.5} metalness={0.56} />
+            <mesh position={[-1.48, railH + 0.14, 0]} rotation={[Math.PI / 2, 0, 0]} castShadow receiveShadow>
+                <cylinderGeometry args={[0.04, 0.04, 8.4, 4]} />
+                <meshStandardMaterial color={config.accentColor} roughness={0.52} metalness={0.48} />
             </mesh>
-            <mesh position={[0, -0.42, 6.5]} castShadow receiveShadow>
-                <boxGeometry args={[0.26, 0.24, 0.6]} />
-                <meshStandardMaterial color={config.accentColor} roughness={0.42} metalness={0.68} />
+            <mesh position={[0, railH + 0.14, 4.18]} rotation={[0, 0, Math.PI / 2]} castShadow receiveShadow>
+                <cylinderGeometry args={[0.04, 0.04, 3.0, 4]} />
+                <meshStandardMaterial color={config.accentColor} roughness={0.52} metalness={0.48} />
+            </mesh>
+
+            {/* Fenders - Smoother Profile */}
+            {[1.7, -1.7].map((x) => (
+                <group key={`fender-${x}`} position={[x, -0.3, config.axleSetup === 'triple' ? 0.3 : 0.2]}>
+                    {/* Main Curved Top */}
+                    <mesh castShadow receiveShadow>
+                        <boxGeometry args={[0.38, 0.04, config.axleSetup === 'triple' ? 3.8 : 3.0]} />
+                        <meshStandardMaterial color={config.accentColor} roughness={0.4} metalness={0.6} />
+                    </mesh>
+                    {/* Slopes */}
+                    <mesh position={[0, -0.22, (config.axleSetup === 'triple' ? 3.8 : 3.0) / 2 + 0.3]} rotation={[0.6, 0, 0]} castShadow receiveShadow>
+                        <boxGeometry args={[0.38, 0.04, 0.8]} />
+                        <meshStandardMaterial color={config.accentColor} roughness={0.4} metalness={0.6} />
+                    </mesh>
+                    <mesh position={[0, -0.22, -(config.axleSetup === 'triple' ? 3.8 : 3.0) / 2 - 0.3]} rotation={[-0.6, 0, 0]} castShadow receiveShadow>
+                        <boxGeometry args={[0.38, 0.04, 0.8]} />
+                        <meshStandardMaterial color={config.accentColor} roughness={0.4} metalness={0.6} />
+                    </mesh>
+                    {/* Inner Guard Plate */}
+                    <mesh position={[x > 0 ? -0.18 : 0.18, -0.2, 0]} castShadow receiveShadow>
+                        <boxGeometry args={[0.02, 0.4, config.axleSetup === 'triple' ? 3.8 : 3.0]} />
+                        <meshStandardMaterial color={config.accentColor} roughness={0.5} />
+                    </mesh>
+                </group>
+            ))}
+
+            {/* Front Tongue Refined */}
+            <mesh position={[0.55, -0.4, 5.5]} rotation={[0, 0.2, 0]} castShadow receiveShadow>
+                <boxGeometry args={[0.15, 0.15, 3.8]} />
+                <meshStandardMaterial color={config.accentColor} roughness={0.4} metalness={0.6} />
+            </mesh>
+            <mesh position={[-0.55, -0.4, 5.5]} rotation={[0, -0.2, 0]} castShadow receiveShadow>
+                <boxGeometry args={[0.15, 0.15, 3.8]} />
+                <meshStandardMaterial color={config.accentColor} roughness={0.4} metalness={0.6} />
             </mesh>
 
             {/* Jack */}
-            <mesh position={[0, -0.85, 6.15]} castShadow receiveShadow>
-                <cylinderGeometry args={[0.08, 0.08, 0.9, 18]} />
-                <meshStandardMaterial color={config.accentColor} roughness={0.48} metalness={0.58} />
+            <mesh position={[0, -0.6, 6.8]} castShadow receiveShadow>
+                <cylinderGeometry args={[0.08, 0.08, 1.2, 16]} />
+                <meshStandardMaterial color={config.accentColor} roughness={0.4} metalness={0.7} />
             </mesh>
-            <mesh position={[0, -1.28, 6.15]} castShadow receiveShadow>
-                <boxGeometry args={[0.36, 0.08, 0.36]} />
-                <meshStandardMaterial color={config.accentColor} roughness={0.52} metalness={0.44} />
+            <mesh position={[0, -1.2, 6.8]} castShadow receiveShadow>
+                <boxGeometry args={[0.3, 0.05, 0.3]} />
+                <meshStandardMaterial color={config.accentColor} roughness={0.4} metalness={0.7} />
             </mesh>
 
-            {/* Rear gate */}
-            <mesh position={[0, 0.58, -4.25]} castShadow receiveShadow>
-                <boxGeometry args={[2.95, 0.1, 0.1]} />
-                <meshStandardMaterial color={config.accentColor} roughness={0.52} metalness={0.46} />
-            </mesh>
-            {[ -1.3, -0.7, -0.1, 0.5, 1.1 ].map((x) => (
-                <mesh key={`gate-${x}`} position={[x, 0.36, -4.25]} castShadow receiveShadow>
-                    <boxGeometry args={[0.06, 0.46, 0.06]} />
-                    <meshStandardMaterial color={config.accentColor} roughness={0.52} metalness={0.46} />
+            {/* 4-Panel Mesh Rear Gate (A2Z Detail) */}
+            <group position={[0, 0.2, -4.3]} rotation={[rampAngle + 0.2, 0, 0]}>
+                {/* Gate Outer Frame */}
+                <mesh position={[0, 1.4, 0]} castShadow receiveShadow>
+                    <boxGeometry args={[3.2, 0.1, 0.1]} />
+                    <meshStandardMaterial color={config.accentColor} />
                 </mesh>
-            ))}
+                <mesh position={[1.55, 0.7, 0]} castShadow receiveShadow>
+                    <boxGeometry args={[0.1, 1.5, 0.1]} />
+                    <meshStandardMaterial color={config.accentColor} />
+                </mesh>
+                <mesh position={[-1.55, 0.7, 0]} castShadow receiveShadow>
+                    <boxGeometry args={[0.1, 1.5, 0.1]} />
+                    <meshStandardMaterial color={config.accentColor} />
+                </mesh>
+                <mesh position={[0, 0, 0]} castShadow receiveShadow>
+                    <boxGeometry args={[3.2, 0.1, 0.1]} />
+                    <meshStandardMaterial color={config.accentColor} />
+                </mesh>
 
-            {/* Rear ramps */}
-            <mesh position={[0.7, -0.2 + rearDeckDrop, -4.7]} rotation={[rampAngle, 0, 0]} castShadow receiveShadow>
-                <boxGeometry args={[0.55, 0.08, 1.55]} />
-                <meshStandardMaterial color={config.accentColor} roughness={0.58} metalness={0.44} />
-            </mesh>
-            <mesh position={[-0.7, -0.2 + rearDeckDrop, -4.7]} rotation={[rampAngle, 0, 0]} castShadow receiveShadow>
-                <boxGeometry args={[0.55, 0.08, 1.55]} />
-                <meshStandardMaterial color={config.accentColor} roughness={0.58} metalness={0.44} />
-            </mesh>
+                {/* Vertical Panel Dividers (making 4 panels) */}
+                {[-0.8, 0, 0.8].map((x) => (
+                    <mesh key={`divider-${x}`} position={[x, 0.7, 0]} castShadow receiveShadow>
+                        <boxGeometry args={[0.08, 1.4, 0.08]} />
+                        <meshStandardMaterial color={config.accentColor} />
+                    </mesh>
+                ))}
+
+                {/* Mesh Pattern per panel */}
+                {[-1.2, -0.4, 0.4, 1.2].map((panelX) => (
+                    <group key={`panel-${panelX}`}>
+                        {[0.28, 0.56, 0.84, 1.12].map((y) => (
+                            <mesh key={`ph-${y}`} position={[panelX, y, 0]} castShadow receiveShadow>
+                                <boxGeometry args={[0.7, 0.02, 0.02]} />
+                                <meshStandardMaterial color={config.accentColor} opacity={0.6} transparent />
+                            </mesh>
+                        ))}
+                        {[panelX - 0.2, panelX, panelX + 0.2].map((vx) => (
+                            <mesh key={`pv-${vx}`} position={[vx, 0.7, 0]} castShadow receiveShadow>
+                                <boxGeometry args={[0.02, 1.4, 0.02]} />
+                                <meshStandardMaterial color={config.accentColor} opacity={0.6} transparent />
+                            </mesh>
+                        ))}
+                    </group>
+                ))}
+            </group>
 
             {/* Axles */}
             {axleZ.map((z, i) => (
@@ -466,24 +508,60 @@ function Wheel({
 }) {
     return (
         <group position={position} scale={[scale, scale, scale]}>
+            {/* Main Tire Body (Smooth/Plain) */}
             <mesh rotation={[0, 0, Math.PI / 2]} castShadow receiveShadow>
                 <cylinderGeometry args={[0.44, 0.44, width, 32]} />
                 <meshStandardMaterial color={tireColor} roughness={tireRoughness} metalness={tireMetalness} />
             </mesh>
 
-            <mesh rotation={[0, 0, Math.PI / 2]} castShadow receiveShadow>
-                <cylinderGeometry args={[0.26, 0.26, width + 0.03, 28]} />
-                <meshPhysicalMaterial color="#c6d0df" roughness={0.2} metalness={rimMetalness} clearcoat={1} clearcoatRoughness={0.1} />
+            {/* Outer Rim Lip */}
+            <mesh rotation={[0, 0, Math.PI / 2]} position={[0, 0, 0]} castShadow>
+                <cylinderGeometry args={[0.265, 0.265, width + 0.04, 32]} />
+                <meshStandardMaterial color="#9ca3af" roughness={0.4} metalness={0.7} />
             </mesh>
 
-            {[0, 1, 2, 3, 4, 5].map((i) => {
-                const angle = (i / 6) * Math.PI * 2;
-                const x = Math.cos(angle) * 0.15;
-                const y = Math.sin(angle) * 0.15;
+            {/* Recessed Rim Face (Stamped Steel Look) */}
+            <mesh position={[0, 0, width / 2 - 0.03]} rotation={[Math.PI / 2, 0, 0]} castShadow>
+                <cylinderGeometry args={[0.25, 0.22, 0.04, 32]} />
+                <meshPhysicalMaterial color="#d1d5db" roughness={0.3} metalness={rimMetalness} clearcoat={0.3} />
+            </mesh>
+
+            {/* Star-Shaped 8-Hole Pattern */}
+            {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => {
+                const angle = (i * Math.PI * 2) / 8;
                 return (
-                    <mesh key={i} position={[x, y, 0]} rotation={[0, 0, angle]} castShadow receiveShadow>
-                        <boxGeometry args={[0.05, 0.2, 0.08]} />
-                        <meshStandardMaterial color="#aeb8c8" roughness={0.24} metalness={0.9} />
+                    <mesh
+                        key={i}
+                        position={[
+                            Math.cos(angle) * 0.155,
+                            Math.sin(angle) * 0.155,
+                            width / 2 - 0.02
+                        ]}
+                        rotation={[Math.PI / 2, 0, -angle]}
+                        castShadow
+                    >
+                        <cylinderGeometry args={[0.035, 0.02, 0.04, 3]} />
+                        <meshStandardMaterial color="#0a0a0a" roughness={0.5} />
+                    </mesh>
+                );
+            })}
+
+            {/* Central Hub Cap (Smooth Dome) */}
+            <mesh position={[0, 0, width / 2 - 0.01]} rotation={[Math.PI / 2, 0, 0]} castShadow>
+                <sphereGeometry args={[0.07, 32, 16, 0, Math.PI * 2, 0, Math.PI / 2]} />
+                <meshPhysicalMaterial color="#f3f4f6" metalness={0.98} roughness={0.02} clearcoat={1} />
+            </mesh>
+            {/* Lug Nuts */}
+            {[0, 1, 2, 3, 4].map((i) => {
+                const angle = (i * Math.PI * 2) / 5;
+                return (
+                    <mesh
+                        key={`lug-${i}`}
+                        position={[Math.cos(angle) * 0.09, Math.sin(angle) * 0.09, width / 2]}
+                        rotation={[Math.PI / 2, 0, 0]}
+                    >
+                        <cylinderGeometry args={[0.015, 0.015, 0.02, 6]} />
+                        <meshStandardMaterial color="#d1d5db" metalness={0.9} />
                     </mesh>
                 );
             })}
@@ -518,11 +596,10 @@ function SwatchRow({
                         key={color}
                         aria-label={`Select color ${color}`}
                         onClick={() => onPick(color)}
-                        className={`h-9 w-9 rounded-full border-2 transition ${
-                            active
-                                ? 'scale-110 border-white shadow-[0_0_0_4px_rgba(255,255,255,0.15)]'
-                                : 'border-white/20 hover:border-white/60'
-                        }`}
+                        className={`h-9 w-9 rounded-full border-2 transition ${active
+                            ? 'scale-110 border-white shadow-[0_0_0_4px_rgba(255,255,255,0.15)]'
+                            : 'border-white/20 hover:border-white/60'
+                            }`}
                         style={{ backgroundColor: color }}
                     />
                 );
@@ -535,11 +612,10 @@ function StyleButton({ label, active, onClick }: { label: string; active: boolea
     return (
         <button
             onClick={onClick}
-            className={`rounded-xl border px-3 py-2 text-sm font-semibold transition ${
-                active
-                    ? 'border-red-400 bg-red-500/20 text-white'
-                    : 'border-white/20 bg-transparent text-white/75 hover:border-white/50 hover:text-white'
-            }`}
+            className={`rounded-xl border px-3 py-2 text-sm font-semibold transition ${active
+                ? 'border-red-400 bg-red-500/20 text-white'
+                : 'border-white/20 bg-transparent text-white/75 hover:border-white/50 hover:text-white'
+                }`}
         >
             {label}
         </button>
